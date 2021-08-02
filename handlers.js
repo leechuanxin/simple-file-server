@@ -20,6 +20,9 @@ const MIME_TYPES = {
 };
 const OCTET_STREAM_CONTENT_TYPE = 'application/octet-stream';
 const BANANA_STRING = 'hello banana!';
+const EASTER_EGG_HEADER = {
+  'rocket-academy-secret-word': 'blastoff',
+};
 
 /**
  * Handles status code 200, ie. OK
@@ -29,7 +32,7 @@ const BANANA_STRING = 'hello banana!';
  */
 const handle200 = (res, content) => {
   // Set the response code to 200 (i.e. OK)
-  res.writeHead(200, {});
+  res.writeHead(200, EASTER_EGG_HEADER);
   // Send the response with the file content in utf-8 format
   res.end(content, 'utf-8');
 };
@@ -41,7 +44,7 @@ const handle200 = (res, content) => {
  */
 const handle404 = (res) => {
   readFile('./404.html', (err, content) => {
-    res.writeHead(404, {});
+    res.writeHead(404, EASTER_EGG_HEADER);
     res.end(content, 'utf-8');
   });
 };
@@ -52,7 +55,7 @@ const handle404 = (res) => {
  * @return {undefined}
  */
 const handle405 = (res) => {
-  res.writeHead(405, {});
+  res.writeHead(405, EASTER_EGG_HEADER);
   res.end('Method Not Allowed: Only GET requests are accepted by the resource.', 'utf-8');
 };
 
@@ -64,7 +67,7 @@ const handle405 = (res) => {
  */
 const handle415 = (res, filetype) => {
   // Set the response code to 415 (i.e. Unsupported Media Type)
-  res.writeHead(415, {});
+  res.writeHead(415, EASTER_EGG_HEADER);
   res.end(`Sorry, we cannot load applications with the extension ${filetype}.`, 'utf-8');
 };
 
@@ -75,7 +78,7 @@ const handle415 = (res, filetype) => {
  * @return {undefined}
  */
 const handle500 = (res, code) => {
-  res.writeHead(500, {});
+  res.writeHead(500, EASTER_EGG_HEADER);
   res.end(`Sorry, please check with the site admin for error ${code} .\n`, 'utf-8');
 };
 

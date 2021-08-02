@@ -19,6 +19,7 @@ const MIME_TYPES = {
   '.wasm': 'application/wasm',
 };
 const OCTET_STREAM_CONTENT_TYPE = 'application/octet-stream';
+const BANANA_STRING = 'hello banana!';
 
 /**
  * Handles status code 200, ie. OK
@@ -94,7 +95,9 @@ const handleRequest = (req, res) => {
     const filetype = String(extname(url)).toLowerCase();
     const contentType = MIME_TYPES[filetype] || OCTET_STREAM_CONTENT_TYPE;
 
-    if (contentType === OCTET_STREAM_CONTENT_TYPE) {
+    if (url.indexOf('/banana') === url.length - 7) {
+      handle200(res, BANANA_STRING);
+    } else if (contentType === OCTET_STREAM_CONTENT_TYPE) {
       handle415(res, filetype);
     } else {
       readFile(url, (err, content) => {
